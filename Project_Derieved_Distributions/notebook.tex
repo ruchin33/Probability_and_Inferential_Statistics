@@ -1,0 +1,1451 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PROJECT\_3\_Some\_interesting\_Discrete\_RV-final}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{PROJECT 3}\label{project-3}
+
+\section{ANALYSIS OF DISCRETE RANDOM
+VARIABLES}\label{analysis-of-discrete-random-variables}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{NAME: Ruchin Patel}\)
+\item
+  \(\textbf{USC ID: 9520665364}\)
+\item
+  \(\textbf{Email: ruchinpa@usc.edu}\)
+\end{itemize}
+
+    \section{Problem Statement}\label{problem-statement}
+
+    \begin{itemize}
+\item
+  \(\textbf{Sum of Uniform RVs}\): N is a random variable such that N =
+  Min\{n: \(\sum_{i=1}^{n} U_i > 1\)\} and where \(U_i\) are uniform
+  random variables. Find E{[}N{]}.
+\item
+  \(\textbf{Minima of Uniform RV's}\): N = Min\{n: \(U_1\) \textless{}=
+  \(U_2\) \textless{}=....\(U_{n-1}\) \textgreater{} \(U_n\)\}. i.e. the
+  nth term is the first that is less than its predecessor, where \{Ui\}
+  are independent identically distributed (iid) Uniform(0,1) RV's. Find
+  (by simulation): E{[} N {]} an estimator for the mean.
+\item
+  \(\textbf{Maxima of Uniform RV's}\): \(U_j\) \textgreater{}
+  \(max_{i=1:j-1}\) \{\(U_i\)\}. Example: the records are
+  underlined.\{Ui\}=\{0.2314,0.4719,0.1133,0.5676,0.4388,0.9453,....\}(note
+  that the Ui are on the real line and we are just showing 4 digits of
+  precision). st th Let Xi be an RV for the distance from the i-1 record
+  to the i record. Clearly X1=1 always. In this example, X2=1, X3=2,
+  X4=2. Distribution of Records: Using simulation, obtain (and graph) a
+  probability histogram for X2 and X3 and compute the sample means. Find
+  an analytical expression for P( X2 = k ) ?
+\end{itemize}
+
+    \section{THEORETICAL EXPLORATION}\label{theoretical-exploration}
+
+\begin{itemize}
+\item
+  \(\textbf{Uniform random variable}\):For a uniform random variable X
+  \textasciitilde{} U(a,b) the equations of mean and variance are as
+  follows:
+
+  \begin{itemize}
+  \item
+    \(E[X] = \mu = \frac{(a+b)}{2}\)
+  \item
+    \(var(X) = \sigma_X^2 = \frac{a^2+ab+b^2}{12}\)
+  \end{itemize}
+\item
+  \(\textbf{Central Limit Theorem}\): The central limit theorem states
+  that if we have a population with mean \(\mu\) and variance
+  \(\sigma_X^2\) then if we take random samples from that population
+  then the sample means of those samples would be normally distributed
+  with mean \(\mu\) and variance \(\frac{\sigma_X^2}{n}\) where n is the
+  size of each sample.
+\item
+  \(\textbf{Euler's number e}\): As we know 'e' is an irrational number
+  with its value being e = 2.71828... We also know that
+  \(\lim_{n\to\infty} (1+\frac{1}{n})^n = e\). Thus if n is very large
+  then the value of the given equation would be equal to the euler's
+  constant.
+\end{itemize}
+
+    \section{SIMULATION METHODOLOGY}\label{simulation-methodology}
+
+    \begin{itemize}
+\tightlist
+\item
+  The below provided flow charts will be representative of the function
+  definitions mentioned below which used to simulate the 3 methods
+  namely 'sum of Uniform RV's', 'Minima of Uniform RV's' and 'Maxima of
+  Uniform RV's'.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Uniform random variable}\): In order to find the mean of
+  this random variable we will first generate a sample of m values and
+  create N such samples. In this way we can better estimate the mean as
+  per the central Limit theorem we can also find the confidence
+  interval.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{Image}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{THE FLOW CHART OF SUM OF UNIFORM RV}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{Image}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sum\PYZus{}of\PYZus{}uniform.PNG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+THE FLOW CHART OF SUM OF UNIFORM RV's
+
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}1}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Minima of Uniform random variable}\): In order to find the
+  mean of this random variable we will first generate a sample of m
+  values and create N such samples. In this way we can better estimate
+  the mean as per the central Limit theorem we can also find the
+  confidence interval.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{THE FLOW CHART OF MINIMA OF UNIFORM RV}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{Image}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minima\PYZus{}of\PYZus{}RV.JPG.PNG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+THE FLOW CHART OF MINIMA OF UNIFORM RV's
+
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}2}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Maxima Uniform random variable}\): Here we generate a
+  uniform random variable tile the 3rd record is found. We continue this
+  for n number of times, calculate the mean of these n number of trials
+  and repeat this experiment another m number of times therby creating
+  our sampling distribution. In theory according to the central limit
+  theorem this sampling distribution should have a mean which is close
+  to E{[}X\_2{]}.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{THE FLOW CHART OF Maxima OF UNIFORM RV}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{Image}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{MAXIMA\PYZus{}of\PYZus{}RV.JPG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+THE FLOW CHART OF Maxima OF UNIFORM RV's
+
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}3}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.jpeg}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{mode}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}densityCurve}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean of sampling distribution for}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}
+                  \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The standard error(st\PYZus{}dev of sampling distribution is) of }\PY{l+s+s2}{\PYZdq{}}
+                  \PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The lower value of 95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s2}{onfidence level of }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{1.96}\PY{o}{*}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The upper value of 95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s2}{onfidence level of }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{l+m+mf}{1.96}\PY{o}{*}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{kde\PYZus{}kws}\PY{o}{=}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{hist\PYZus{}kws}\PY{o}{=}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+            \PY{n}{l1} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample mean}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}
+            \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{n}{l1}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 standard dev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{+}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} 
+                        \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{l2} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True value }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purple}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{n}{l2}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{1.96}\PY{o}{*}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{l+m+mf}{1.96}\PY{o}{*}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The sampling distribution of }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]} 
+                      \PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ with }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ samples of size n=}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}plot}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{method} \PY{o}{=} \PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{method}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{trials} \PY{o}{=} \PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{sample\PYZus{}size} \PY{o}{=} \PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samp\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            
+            \PY{n}{P\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+            \PY{n}{std\PYZus{}sampling\PYZus{}dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The mean of sampling distribution for}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                  \PY{n}{method}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{P\PYZus{}hat}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The standard error(st\PYZus{}dev of sampling distribution is) of }\PY{l+s+s2}{\PYZdq{}}
+                  \PY{p}{,}\PY{n}{method}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ is:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{std\PYZus{}sampling\PYZus{}dist}\PY{p}{)}
+            
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}    
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{edgecolor}\PY{o}{=}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{cumulative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                     \PY{n}{color}\PY{o}{=}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{edgecolor}\PY{o}{=}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h\PYZus{}c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c\PYZus{}e}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Histogram with cdf of sampling distribution of}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{method}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+            \PY{n}{density\PYZus{}dic} \PY{o}{=} \PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sns\PYZus{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sns\PYZus{}h}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{kde\PYZus{}kws}\PY{o}{=}\PY{n}{density\PYZus{}dic}\PY{p}{,}\PY{n}{hist\PYZus{}kws}\PY{o}{=}\PY{n}{hist\PYZus{}dic}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distribution of }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{method}
+                      \PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ with sample size: }\PY{l+s+s1}{\PYZsq{}}
+                      \PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{trials}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ and total samples: }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{sample\PYZus{}size}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}def plot\PYZus{}densityCurve(*args):}
+        
+        \PY{k}{def} \PY{n+nf}{single\PYZus{}trial\PYZus{}sum}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{method}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+                \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{sum\PYZus{}n} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{k}{while}\PY{p}{(}\PY{n}{sum\PYZus{}n} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}print(\PYZsq{}here\PYZsq{})}
+                    \PY{n}{sum\PYZus{}n} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                    \PY{c+c1}{\PYZsh{}print(n)}
+                \PY{n}{N}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                
+            \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{c}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{cumulative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                     \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value of N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{method}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{SE} \PY{o}{=} \PY{n}{std}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The expected value of }
+                  \PY{n}{N}\PY{p}{(}\PY{n}{point} \PY{n}{estimate}\PY{p}{)} \PY{k}{with} \PY{n}{method} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,method,}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{is}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,mean)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The standard deviation of }
+                  \PY{n}{N} \PY{k}{with} \PY{n}{method} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,method,}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{is}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,std)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The standard error of }
+                  \PY{n}{sampling} \PY{n}{distribution} \PY{n}{of} \PY{n}{N} \PY{k}{with} \PY{n}{method} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,method,}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{is}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,SE)}
+            
+            \PY{k}{return} \PY{n}{mean}\PY{p}{,}\PY{n}{std}\PY{p}{,}\PY{n}{SE}
+        
+        \PY{k}{def} \PY{n+nf}{single\PYZus{}trial\PYZus{}minima}\PY{p}{(}\PY{n}{c}\PY{p}{,}\PY{n}{method}\PY{p}{)}\PY{p}{:}
+            \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+                \PY{n}{prev\PYZus{}curr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{2}
+                \PY{k}{while}\PY{p}{(}\PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{current} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{current}
+                        
+                    \PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                        \PY{c+c1}{\PYZsh{}print(n)}
+                \PY{n}{N}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                
+             
+            \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{n}{c}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{N}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{cumulative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                     \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,}
+                     \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value of N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PDF of }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{method}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{n}{mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+            \PY{n}{SE} \PY{o}{=} \PY{n}{std}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The expected value of }
+                  \PY{n}{N}\PY{p}{(}\PY{n}{point} \PY{n}{estimate}\PY{p}{)} \PY{k}{with} \PY{n}{method} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,method,}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{is}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,mean)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The standard deviation }
+                  \PY{n}{of} \PY{n}{N} \PY{k}{with} \PY{n}{method} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,method,}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{is}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,std)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The standard error of }
+                  \PY{n}{sampling} \PY{n}{distribution} \PY{n}{of} \PY{n}{N} \PY{k}{with} \PY{n}{method} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,method,}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{is}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,SE)}
+            
+            \PY{k}{return} \PY{n}{mean}\PY{p}{,}\PY{n}{std}\PY{p}{,}\PY{n}{SE}
+                
+            
+        
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}distribution}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{sampling\PYZus{}distribution} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+            \PY{k}{if}\PY{p}{(}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{method}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum\PYZus{}of\PYZus{}uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+               
+                \PY{n}{mean\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{sum\PYZus{}n} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{N\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+            
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{N} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+                        \PY{n}{sum\PYZus{}n} \PY{o}{=} \PY{l+m+mi}{0}
+                        \PY{k}{while}\PY{p}{(}\PY{n}{sum\PYZus{}n} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                            \PY{c+c1}{\PYZsh{}print(\PYZsq{}here\PYZsq{})}
+                            \PY{n}{sum\PYZus{}n} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                            \PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                        \PY{c+c1}{\PYZsh{}print(n)}
+                        \PY{n}{N}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                    
+                    \PY{n}{N\PYZus{}mean}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{sampling\PYZus{}distribution} \PY{o}{=} \PY{n}{N\PYZus{}mean}
+            
+            \PY{k}{else}\PY{p}{:}
+            
+                \PY{n}{mean\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{N\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{0}
+            
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{N} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                    \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{kwargs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                    
+                        \PY{n}{prev\PYZus{}curr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                        \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                        \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{2}
+                        \PY{k}{while}\PY{p}{(}\PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{current} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                            \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+                            \PY{n}{prev\PYZus{}curr}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{current}
+                        
+                            \PY{n}{n} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                        \PY{c+c1}{\PYZsh{}print(n)}
+                        \PY{n}{N}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                    
+                    \PY{n}{N\PYZus{}mean}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{N}\PY{p}{)}\PY{p}{)}
+                
+                \PY{n}{sampling\PYZus{}distribution} \PY{o}{=} \PY{n}{N\PYZus{}mean}
+            
+            \PY{k}{return} \PY{n}{sampling\PYZus{}distribution}
+                
+        
+        
+        
+            
+                
+        \PY{k}{def} \PY{n+nf}{maxima\PYZus{}of\PYZus{}uniform}\PY{p}{(}\PY{n}{trials}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{X\PYZus{}2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{X\PYZus{}3} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{trials}\PY{p}{)}\PY{p}{:}
+                \PY{n}{U} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{n}{Rec} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+                \PY{n}{c} \PY{o}{=} \PY{l+m+mi}{1}
+                \PY{n}{val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n}{U}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{val}\PY{p}{)}
+                \PY{n}{Rec}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}
+                \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}
+                \PY{k}{while}\PY{p}{(}\PY{n}{c} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+                    \PY{n}{U}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{val}\PY{p}{)}
+                    \PY{k}{if}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{U}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{U}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{c} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                        \PY{n}{Rec}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{n}{Rec}\PY{p}{[}\PY{n}{c}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+                    \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+            
+                \PY{n}{X\PYZus{}2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Rec}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                \PY{k}{try} \PY{p}{:}
+                    \PY{n}{X\PYZus{}3}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Rec}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                \PY{k}{except}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{U}\PY{p}{)}
+                
+                \PY{c+c1}{\PYZsh{}print(X\PYZus{}2)}
+                \PY{c+c1}{\PYZsh{}print(X\PYZus{}3)}
+            
+            \PY{n}{X\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{)}
+            \PY{n}{X\PYZus{}3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{X\PYZus{}3}\PY{p}{)}
+            
+            \PY{n}{X\PYZus{}2\PYZus{}t} \PY{o}{=} \PY{n}{X\PYZus{}2}\PY{p}{[}\PY{n}{X\PYZus{}2} \PY{o}{\PYZlt{}} \PY{l+m+mi}{30}\PY{p}{]}
+            \PY{n}{X\PYZus{}3\PYZus{}t} \PY{o}{=} \PY{n}{X\PYZus{}3}\PY{p}{[}\PY{n}{X\PYZus{}3} \PY{o}{\PYZlt{}} \PY{l+m+mi}{30}\PY{p}{]}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample Mean of X\PYZus{}2 is:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}2\PYZus{}t}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample mean of X\PYZus{}3 is:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}3\PYZus{}t}\PY{p}{)}\PY{p}{)}
+            
+            
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+            \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.8}\PY{p}{\PYZcb{}}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{X\PYZus{}2}\PY{p}{,}\PY{n}{hist\PYZus{}kws}\PY{o}{=}\PY{n}{hist\PYZus{}dic}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x \PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(X\PYZus{}2)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The pdf of X\PYZus{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+            \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+            \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.8}\PY{p}{\PYZcb{}}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{X\PYZus{}3}\PY{p}{,}\PY{n}{hist\PYZus{}kws}\PY{o}{=}\PY{n}{hist\PYZus{}dic}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x \PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P(X\PYZus{}3)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The pdf of X\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+            
+        
+        
+                
+                
+                       
+                
+            
+\end{Verbatim}
+
+
+    \section{EXPERIMENTS AND RESULTS}\label{experiments-and-results}
+
+\subsection{\texorpdfstring{1.) N is a random variable such that N =
+Min\{n: Sum (\$ U\_i \textgreater{} 1\$)\} and where \(U_i\) are uniform
+random variables. Find
+E{[}N{]}.}{1.) N is a random variable such that N = Min\{n: Sum (\$ U\_i \textgreater{} 1\$)\} and where U\_i are uniform random variables. Find E{[}N{]}.}}\label{n-is-a-random-variable-such-that-n-minn-sum-u_i-1-and-where-u_i-are-uniform-random-variables.-find-en.}
+
+    \begin{itemize}
+\item
+  In this part we produce the simulations according to the code written
+  above. We will be creating a sampling distribution of the experiment
+  mentioned in part 1 where we are supposed to capture the mean of the
+  total number of entries of a uniform random variable needed to so that
+  their sum is greater than 1.
+\item
+  For this we conduct many such experimnts and create a sampling
+  distribution. We do this because the central limit theorem states that
+  the mean of a such a sampling distribution would be close to the true
+  mean of the random variable.
+\item
+  Thus we would be able to generate a range of values which would tell
+  us how confident we are that the population parameter lies within this
+  range i.e How confident we are that the True mean lies within range.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{mean}\PY{p}{,}\PY{n}{std}\PY{p}{,}\PY{n}{SE} \PY{o}{=} \PY{n}{single\PYZus{}trial\PYZus{}sum}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum of Uniform RV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The expected value of N(point estimate) with method  sum of Uniform RV  is:  2.679
+The standard deviation of N with method  sum of Uniform RV  is:  0.8578805278125853
+The standard error of sampling distribution of N with method  sum of Uniform RV  is:  0.027128564281951966
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Result}\): The mean and standard deviation when we take 1000
+  trials without creating a sampling distribution is:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mean = 2.679
+  \item
+    std = 0.857
+  \item
+    SE = 0.0271
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\item
+  \(\textbf{Insights on the mean}\): As we can see from the above graph,
+  the pdf N is close to a geometric pdf. Also as we can see the green
+  graph represents CDF and the formula for CDF is P(N\textless{}n).
+\item
+  If we look at the CDF of N above we can see that it reaches 1 for very
+  low values of N. This makes sense because N is a random variable which
+  consists of summation of Uniform random vars. Also the expected value
+  of every such uniform random variable is \(\frac{0+1}{2} = 0.5\). Thus
+  it should be clear intuitively that if we draw a random value from a
+  uniform distribution it has the highest probability of having a value
+  0.5 . And since 0.5 occurs more than any other value in a uniform RV
+  between (0,1) we can say that the addition of two samples drawn from a
+  Uniform RV would sum to 1 with the highest probability.
+\item
+  The above mentioned phenemonan is evident from the pdf in orange above
+  in which N has the highest probability of being greater than but
+  around 2. Thus looking at the above pdf and the fact that every random
+  variable creating N is Uniform between (0,1) we can say that the final
+  expected value of N would be greater than 2 but somewhere around 2.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{m} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum\PYZus{}of\PYZus{}uniform}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{1000}
+        \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{1000}
+        \PY{n}{dist} \PY{o}{=} \PY{n}{generate\PYZus{}distribution}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{n}{m}\PY{p}{,}\PY{n}{trials}\PY{o}{=}\PY{n}{t}\PY{p}{,}\PY{n}{sample\PYZus{}size}\PY{o}{=}\PY{n}{s}\PY{p}{)}
+        \PY{n}{d} \PY{o}{=} \PY{n}{dist}
+        
+        
+        \PY{n}{hist\PYZus{}and\PYZus{}cdf} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}e}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c\PYZus{}c}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c\PYZus{}e}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{density\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+        \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edgecolor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.4}\PY{p}{\PYZcb{}}
+        \PY{n}{generate\PYZus{}plot}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{n}{m}\PY{p}{,} \PY{n}{dist}\PY{o}{=}\PY{n}{d}\PY{p}{,} \PY{n}{trials}\PY{o}{=}\PY{n}{t}\PY{p}{,} 
+                      \PY{n}{samp\PYZus{}size}\PY{o}{=}\PY{n}{s}\PY{p}{,} \PY{n}{h\PYZus{}c} \PY{o}{=} \PY{n}{hist\PYZus{}and\PYZus{}cdf}\PY{p}{,}
+                      \PY{n}{sns\PYZus{}d} \PY{o}{=} \PY{n}{density\PYZus{}dic}\PY{p}{,}\PY{n}{sns\PYZus{}h} \PY{o}{=} \PY{n}{hist\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of sampling distribution for sum\_of\_uniform  is:  2.719176
+The standard error(st\_dev of sampling distribution is) of  sum\_of\_uniform  is: 0.02686013819770851
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  \(\textbf{Insights on the simulation above}\): What we did abovewas
+  create a sampling distribution of sample means. As we can see this
+  distribution is nearly normal and hence we can conclude that the mean
+  of this sample distribution would be very close to the true mean.
+
+  \begin{itemize}
+  \item
+    The first graph gives us a very good insight in the sampling
+    distribution of the random variable N. It also shows the CDF of the
+    sampling distribution. We now hat the CDF of an RV N is given by P(N
+    \textless{}= n). This P(N \textgreater{} n) = 1 - P(N \textless{}=
+    n). We can see that the CDF for values around 2.8 is almost equal to
+    1.
+
+    \begin{itemize}
+    \item
+      Therefore P(N \textgreater{} 3) = 1 - P(N \textless{}= n) = 1 - 1
+      = 0
+    \item
+      This proves the fact that we stated above in which we said that
+      E{[}N{]} would be greater than 2 but would be around 2. Infact the
+      mean of our sampling distribution is 2.717 which is very close to
+      the euler number 'e' = 2.718...
+    \end{itemize}
+  \end{itemize}
+\item
+  Thus before we move forward to creating the confidence interval for
+  the sampling distribution we will try to guess what the true value of
+  E{[}N{]} should be and why it should be around 'e' = 2.718....
+\end{itemize}
+
+    \begin{itemize}
+\item
+  \(\textbf{True E[N]}\):
+
+  \begin{itemize}
+  \item
+    Consider we want to find P(N = 2).
+
+    \begin{itemize}
+    \item
+      In that case P(N = 2) = P(\(U_1\)+\(U_2\) \textgreater{} 1)
+    \item
+      P(N = 2) = 1 - P(\(U_1\)+\(U_2\) \textless{}= 1)
+    \item
+      In this case the probability of P(\(U_1\)+\(U_2\) \textless{}= 1)
+      is given by the area under the line \(U_1\)+\(U_2\) = 1.
+    \item
+      Thus P(N = 2) = 1 - Area\_under\_line
+    \end{itemize}
+  \item
+    Similarly if we want to calculate P(N = 3) we do the following:
+
+    \begin{itemize}
+    \item
+      P(N = 3) = P(N \textless{}= 3) - P(N = 2)
+    \item
+      P(N = 3) = P(\(U_1\)+\(U_2\)+\(U_3\) \textgreater{} 1) - P(N = 2)
+    \item
+      P(N = 3) = {[}1 - P(\(U_1\)+\(U_2\)+\(U_3\) \textless{}= 1){]} -
+      P(N = 2)
+    \item
+      In this case the probability of P(\(U_1\)+\(U_2\)+\(U_3\)
+      \textless{}= 1) is the volume under the plane
+      \(U_1\)+\(U_2\)+\(U_3\) = 1
+    \item
+      Thus P(N = 3) = (1 - volume\_under\_plane) - P(N = 2)
+    \end{itemize}
+  \item
+    Thus for we can generalize it as follows:
+
+    \begin{itemize}
+    \item
+      P(\(U_1\)+\(U_2\)+...+\(U_n\) \textless{}= 1) = volume\_under n
+      dimensional plane
+    \item
+      Turns out that the volume under such a plane is given by
+      \(\frac{1}{n!}\) Source:
+      https://en.wikipedia.org/wiki/Simplex\#Volume
+    \end{itemize}
+  \item
+    Therefore P(N = n) = P(N \textless{}= n) - P(n \textless{}= n-1)
+
+    \begin{itemize}
+    \item
+      P(N = n) = \([1 - \frac{1}{n!}]\) - \([1 - \frac{1}{(n-1)!}]\)
+    \item
+      After simplifying P(N = n) = \(\frac{n-1}{n!}\)
+    \end{itemize}
+  \item
+    Thus \(E[N]\) = \(\sum_{n=2}^{\infty} n*P(N=n)\)
+
+    \begin{itemize}
+    \item
+      After simplifying we get \(E[N]\) =
+      \(\sum_{n=2}^{\infty} \frac{1}{n!}\)
+    \item
+      Since we are considering 'e' the Taylor series expansion is given
+      by \(e^x\) = \(\sum_{n=0}^{\infty} \frac{x^n}{n!}\) Source:
+      https://en.wikipedia.org/wiki/Taylor\_series
+    \item
+      Thus if x = 1 then we get \(e^1\) =
+      \(\sum_{n=0}^{\infty} \frac{1^n}{n!}\)
+    \item
+      Thus \(e\) = \(\sum_{n=0}^{\infty} \frac{1}{n!}\) = E{[}N{]}
+    \item
+      Thus E{[}N{]} = e = 2.718...
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  Now we will plot the 95\% confidence interval which states that we are
+  95 percent confident of capturing the true mean which is 'e' within
+  the given range.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{n}{mean}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{n}{SE}\PY{p}{,}\PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10000}\PY{p}{)}
+        \PY{n}{plot\PYZus{}densityCurve}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{density\PYZus{}dic}\PY{p}{,}
+                          \PY{k+kc}{None}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{mean}\PY{p}{,}\PY{n}{SE}\PY{p}{,}\PY{l+m+mf}{2.718}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of sampling distribution for sum\_of\_uniform  is:  2.679
+The standard error(st\_dev of sampling distribution is) of  sum\_of\_uniform  is: 0.027128564281951966
+The lower value of 95\% confidence level of  sum\_of\_uniform  is 2.6258280140073738
+The upper value of 95\% confidence level of  sum\_of\_uniform  is 2.732171985992626
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Result}\): The confidence interval range of our experiment
+\end{itemize}
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+True Value('e') & point\_estimate & lower\_bound &
+upper\_bound\tabularnewline
+\midrule
+\endhead
+2.718 & 2.679 & 2.626 & 2.732\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  Thus we can say that we are 95\% confident that the true mean(E{[}N{]}
+  = 'e') will be within the upper and lower bounds generated by our
+  simulation.
+\item
+  We can see from the above figure that the True mean is captured by the
+  confidence interval.
+\end{itemize}
+
+    \subsection{\texorpdfstring{2.) N = Min\{n: \(U_1\) \textless{}= \(U_2\)
+\textless{}=....\(U_{n-1}\) \textgreater{} \(U_n\)\}. i.e. the nth term
+is the first that is less than its predecessor, where \{Ui\} are
+independent identically distributed (iid) Uniform(0,1) RV's. Find (by
+simulation): E{[} N {]} an estimator for the
+mean.}{2.) N = Min\{n: U\_1 \textless{}= U\_2 \textless{}=....U\_\{n-1\} \textgreater{} U\_n\}. i.e. the nth term is the first that is less than its predecessor, where \{Ui\} are independent identically distributed (iid) Uniform(0,1) RV's. Find (by simulation): E{[} N {]} an estimator for the mean.}}\label{n-minn-u_1-u_2-....u_n-1-u_n.-i.e.-the-nth-term-is-the-first-that-is-less-than-its-predecessor-where-ui-are-independent-identically-distributed-iid-uniform01-rvs.-find-by-simulation-e-n-an-estimator-for-the-mean.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{mean1}\PY{p}{,}\PY{n}{std1}\PY{p}{,}\PY{n}{SE1} \PY{o}{=} \PY{n}{single\PYZus{}trial\PYZus{}minima}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Minima of Uniform RV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+The expected value of N(point estimate) with method  Minima of Uniform RV  is:  2.722
+The standard deviation of N with method  Minima of Uniform RV  is:  0.8442250884687093
+The standard error of sampling distribution of N with method  Minima of Uniform RV  is:  0.02669674137418273
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Result}\): The mean and standard deviation when we take 1000
+  trials without creating a sampling distribution(i.e a point estimate)
+  is:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mean = 2.72
+  \item
+    std = 0.844
+  \item
+    SE = 0.026
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\item
+  \(\textbf{Insights on the mean}\): Even the pdf of this variable turns
+  out to be a geometric pdf. This makes sense as geometric pdf captures
+  P(N = n) where n is the value when the first success occurs. In this
+  case the success being when \(U_{i-1} > U_i\).
+\item
+  We can also see that the mean of this distribution is close to the
+  value of 'e' as mentioned above. Thus we again will try to see if
+  E{[}N{]} = 'e'.
+\item
+  Before we go deep into finding the true value of E{[}N{]} we would
+  first see some graphs of the sampling distribution which would help us
+  to give a final conclusion on the value of E{[}N{]}.
+\item
+  The rest of the insights are same as mentioned in part 1 above.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{m} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{minima\PYZus{}of\PYZus{}uniform}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{t} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{dist} \PY{o}{=} \PY{n}{generate\PYZus{}distribution}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{n}{m}\PY{p}{,}\PY{n}{trials}\PY{o}{=}\PY{n}{t}\PY{p}{,}\PY{n}{sample\PYZus{}size}\PY{o}{=}\PY{n}{s}\PY{p}{)}
+         
+         \PY{n}{d} \PY{o}{=} \PY{n}{dist}
+         
+         
+         \PY{n}{hist\PYZus{}and\PYZus{}cdf} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}e}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c\PYZus{}c}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist\PYZus{}c\PYZus{}e}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{density\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purple}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edgecolor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.4}\PY{p}{\PYZcb{}}
+         \PY{n}{generate\PYZus{}plot}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{n}{m}\PY{p}{,} \PY{n}{dist}\PY{o}{=}\PY{n}{d}\PY{p}{,} \PY{n}{trials}\PY{o}{=}\PY{n}{t}\PY{p}{,} 
+                       \PY{n}{samp\PYZus{}size}\PY{o}{=}\PY{n}{s}\PY{p}{,} \PY{n}{h\PYZus{}c} \PY{o}{=} \PY{n}{hist\PYZus{}and\PYZus{}cdf}\PY{p}{,} 
+                       \PY{n}{sns\PYZus{}d} \PY{o}{=} \PY{n}{density\PYZus{}dic}\PY{p}{,}\PY{n}{sns\PYZus{}h} \PY{o}{=} \PY{n}{hist\PYZus{}dic}\PY{p}{)}
+         
+         \PY{n}{density\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of sampling distribution for minima\_of\_uniform  is:  2.7177249999999997
+The standard error(st\_dev of sampling distribution is) of  minima\_of\_uniform  is: 0.027674417338039842
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  \(\textbf{Insights on the simulation above}\): What we did above was
+  create a sampling distribution of sample means. As we can see this
+  distribution is nearly normal and hence we can conclude that the mean
+  of this sample distribution would be very close to the true mean.
+\item
+  The rest of the insights of above simulation are same as part one. The
+  only thing I would like to add here is that since the distribution for
+  random variable N which denotes the Minima of RV is almost the same as
+  that from part 1, the true mean of this RV should also be equal to
+  'e'. Let us try to prove this expected Value of N
+\end{itemize}
+
+    \begin{itemize}
+\item
+  \(\textbf{True E[N]}\):
+
+  \begin{itemize}
+  \item
+    P(N = 2) = P(\(U_1\) \textgreater{} \(U_2\))
+
+    \begin{itemize}
+    \item
+      But P(\(U_1\) \textgreater{} \(U_2\)) + P(\(U_2\) \textgreater{}
+      \(U_2\)) + P(\(U_1\) = \(U_2\)) = 1
+    \item
+      We also know that since U is a continuous uniform random variable
+      P(\(U_1\) = \(U_2\)) = 0
+    \item
+      Therefore P(\(U_1\) \textgreater{} \(U_2\)) + P(\(U_2\)
+      \textgreater{} \(U_2\)) = 1
+    \item
+      But since \(U_1\) and \(U_2\) are i.i.d we can say that P(\(U_1\)
+      \textgreater{} \(U_2\)) = P(\(U_2\) \textgreater{} \(U_1\)).
+    \item
+      Thus P(\(U_1\) \textgreater{} \(U_2\)) = \(\frac{1}{2}\) =
+      \(\frac{1}{2!}\)
+    \end{itemize}
+  \item
+    Similarly P(N = 3) = P(N \textless{}= 3) - P(N = 2)
+
+    \begin{itemize}
+    \item
+      But P(N \textless{}= 3) = P(\{\(U_1\) \textless{}= \(U_2\)\}
+      \textgreater{} \(U_3\)) = 1 - P(\{\(U_1\) \textless{}= \(U_2\)\}
+      \textless{}= \(U_3\))
+    \item
+      Therefore P(N \textless{}= 3) = 1 - P(\(U_1\) \textless{}= \(U_2\)
+      \textless{}= \(U_3\))
+    \item
+      Again we can say that:
+
+      \begin{itemize}
+      \tightlist
+      \item
+        P(\(U_1\) \textless{} \(U_2\) \textless{} \(U_3\)) + P(\(U_1\)
+        \textless{} \(U_3\) \textless{} \(U_2\)) + P(\(U_3\) \textless{}
+        \(U_1\) \textless{} \(U_2\)) + P(\(U_3\) \textless{} \(U_2\)
+        \textless{} \(U_1\)) + P(\(U_2\) \textless{} \(U_3\) \textless{}
+        \(U_1\)) + P(\(U_2\) \textless{} \(U_1\) \textless{} \(U_3\)) =
+        1
+      \end{itemize}
+    \item
+      As we said above all the probabilities are equal and hence
+      P(\(U_1\) \textless{}= \(U_2\) \textless{}= \(U_3\)) =
+      \(\frac{1}{6}\) = \(\frac{1}{3!}\).
+    \item
+      Thus P(N = 3) = (1 - \(\frac{1}{3!}\)) - P(N = 2)
+    \end{itemize}
+  \item
+    If we generalize the above method P(N = n) would be given by :
+
+    \begin{itemize}
+    \item
+      P(N = n) = {[}1 - \(\frac{1}{n!}\){]} - {[}1 -
+      \(\frac{1}{(n-1)!}\){]}
+    \item
+      After simplifying P(N = n) = \(\frac{n-1}{n!}\)
+    \end{itemize}
+  \item
+    Thus E{[}N{]} = \(\sum_{n=2}^{\infty} n*P(N=n)\)
+
+    \begin{itemize}
+    \item
+      After simplifying we get E{[}N{]} =
+      \(\sum_{n=2}^{\infty} \frac{1}{n!}\)
+    \item
+      Since we are considering 'e' the Taylor series expansion is given
+      by \(e^x\) = \(\sum_{n=0}^{\infty} \frac{x^n}{n!}\) Source:
+      https://en.wikipedia.org/wiki/Taylor\_series
+    \item
+      Thus if x = 1 then we get \(e^1\) =
+      \(\sum_{n=0}^{\infty} \frac{1^n}{n!}\)
+    \item
+      Thus \(e\) = \(\sum_{n=0}^{\infty} \frac{1}{n!}\) = E{[}N{]}
+    \item
+      Thus E{[}N{]} = e = 2.718...
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  The 95\% confidence interval would be as follows:
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{n}{mean1}\PY{p}{,}\PY{n}{scale}\PY{o}{=}\PY{n}{SE1}\PY{p}{,}\PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10000}\PY{p}{)}
+         \PY{n}{hist\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.5}\PY{p}{\PYZcb{}}
+         \PY{n}{plot\PYZus{}densityCurve}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{density\PYZus{}dic}\PY{p}{,}
+                           \PY{n}{hist\PYZus{}dic}\PY{p}{,}\PY{n}{t}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{mean1}\PY{p}{,}\PY{n}{SE1}\PY{p}{,}\PY{l+m+mf}{2.73}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The mean of sampling distribution for minima\_of\_uniform  is:  2.722
+The standard error(st\_dev of sampling distribution is) of  minima\_of\_uniform  is: 0.02669674137418273
+The lower value of 95\% confidence level of  minima\_of\_uniform  is 2.669674386906602
+The upper value of 95\% confidence level of  minima\_of\_uniform  is 2.774325613093398
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Result}\): The 95\% confidence interval range of the
+  sampling distribution of an RV that captures Minima of uniform RV's.
+\end{itemize}
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+True Value('e') & point\_estimate & lower\_bound &
+upper\_bound\tabularnewline
+\midrule
+\endhead
+2.718 & 2.72 & 2.669 & 2.774\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  Thus we can say that we are 95\% confident that the true mean(E{[}N{]}
+  = 'e') will be within the upper and lower bounds generated by our
+  simulation.
+\item
+  We can see from the above figure that the True mean is captured by the
+  confidence interval.
+\end{itemize}
+
+    \subsection{\texorpdfstring{3.) \(\textbf{Maxima of Uniform RV's}\):
+\(U_j\) \textgreater{} \(max_{i=1:j-1}\)
+\{\(U_i\)\}.}{3.) \textbackslash{}textbf\{Maxima of Uniform RV's\}: U\_j \textgreater{} max\_\{i=1:j-1\} \{U\_i\}.}}\label{textbfmaxima-of-uniform-rvs-u_j-max_i1j-1-u_i.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{maxima\PYZus{}of\PYZus{}uniform}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sample Mean of X\_2 is: 2.917525773195876
+Sample mean of X\_3 is: 5.771739130434782
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  As we can see above the PDF of Maxima of a uniform random variable
+  again follows a geometric pdf. This is because \(X_1\), \(X_2\),
+  \(X_3\) etc represent the random variables which depict the \(j^{th}\)
+  record. In other words they represent the \(j^{th}\) success. And the
+  geometric pdf maps the same thing which is the first success after k
+  trials.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Result}\): The sample means when the sample size is 100 are
+  as follows:
+\end{itemize}
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule
+sample mean(\(X_2\)) & sample mean(\(X_3\))\tabularnewline
+\midrule
+\endhead
+2.917 & 5.772\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\item
+  \$\textbf{Analytical expression for P( $X_2$ = k)}\$:
+
+  \begin{itemize}
+  \item
+    P(\(X_2\) = 1) = P(\(U_1\) \textless{} \(U_2\))
+
+    \begin{itemize}
+    \item
+      But P(\(U_1\) \textgreater{} \(U_2\)) + P(\(U_2\) \textgreater{}
+      \(U_2\)) + P(\(U_1\) = \(U_2\)) = 1
+    \item
+      We also know that since U is a continuous uniform random variable
+      P(\(U_1\) = \(U_2\)) = 0
+    \item
+      Therefore P(\(U_1\) \textgreater{} \(U_2\)) + P(\(U_2\)
+      \textgreater{} \(U_2\)) = 1
+    \item
+      But since \(U_1\) and \(U_2\) are i.i.d we can say that P(\(U_1\)
+      \textgreater{} \(U_2\)) = P(\(U_2\) \textgreater{} \(U_1\)).
+    \item
+      Thus P(\(U_1\) \textgreater{} \(U_2\)) = \(\frac{1}{2}\) =
+      \(\frac{1}{2^1}\)
+    \end{itemize}
+  \item
+    P(\(X_2\) = 2) = P(\{\(U_1\) and \(U_2\)\} \textless{} \(U_3\))
+
+    \begin{itemize}
+    \item
+      Thus P(\(X_2\) = 2) = P(\{\(U_1\) \textless{} \(U_3\)\} and
+      \{\(U_2\) \textless{} \(U_3\)\})
+    \item
+      Since the events are i.i.d P(\(X_2\) = 2) = P(\(U_1\) \textless{}
+      \(U_3\)) x P(\(U_2\) \textless{} \(U_3\))
+    \item
+      Therefore as explained above all the probabilities have value
+      \(\frac{1}{2}\). And P(\(X_2\) = 2) = \(\frac{1}{2}\) x
+      \(\frac{1}{2}\) = \(\frac{1}{2^2}\)
+    \end{itemize}
+  \item
+    Similarly P(\(X_2\) = 3) = P(\{\(U_1\) and \(U_2\) and \(U_3\)\}
+    \textless{} \(U_4\))
+
+    \begin{itemize}
+    \item
+      Thus P(\(X_2\) = 3) = P(\{\(U_1\) \textless{} \(U_4\)\} and
+      \{\(U_2\) \textless{} \(U_4\)\} and \{\(U_3\) \textless{}
+      \(U_4\)\})
+    \item
+      P(\(X_2\) = 3) = P(\(U_1\) \textless{} \(U_4\)) x P(\(U_2\)
+      \textless{} \(U_4\)) x P(\(U_3\) \textless{} \(U_4\))
+    \item
+      Thus P(\(X_2\) = 3) = \(\frac{1}{2}\) x \(\frac{1}{2}\) x
+      \(\frac{1}{2}\) = \(\frac{1}{2^3}\)
+    \end{itemize}
+  \item
+    Thus we now have the following probabilities:
+
+    \begin{itemize}
+    \item
+      P(\(X_2\) = 1) = \(\frac{1}{2^1}\)
+    \item
+      P(\(X_2\) = 2) = \(\frac{1}{2^2}\)
+    \item
+      P(\(X_2\) = 3) = \(\frac{1}{2^3}\)
+    \item
+      Thus considering this trend we can say that:
+
+      \begin{itemize}
+      \tightlist
+      \item
+        P(\(X_2\) = k) = \(\frac{1}{2^k}\)
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\item
+  \$\textbf{Expected value of $X_2$}\$:
+
+  \begin{itemize}
+  \item
+    The expected value is given by E{[}\(X_2\){]} =
+    \(\sum_{k=1}^{\infty} k*(X_2=k)\)
+
+    \begin{itemize}
+    \item
+      Thus E{[}\(X_2\){]} = \(\sum_{k=1}^{\infty} \frac{k}{{2^k}}\)
+    \item
+      Further calculations of this series reveals that
+      \(\sum_{k=1}^{\infty} \frac{k}{{2^k}}\) = 2
+    \item
+      Thus E{[}\(X_2\){]} = 2
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Conclusion}\): If we compare our sample mean which is 2.91
+  and the true mean which is 2 we can say that tehy are quite close to
+  each other. If we take a bigger sample then we will get a mean which
+  is closer to the true value.
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
