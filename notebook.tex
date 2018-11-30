@@ -1,0 +1,965 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Project\_Statistics\_and\_bootstrapping}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Project 6 - Statistics and
+Bootstrapping}\label{project-6---statistics-and-bootstrapping}
+
+    \subsection{NAME : RUCHIN PATEL}\label{name-ruchin-patel}
+
+\subsection{USC ID : 9520665364}\label{usc-id-9520665364}
+
+\subsection{EMAIL : ruchinpa@usc.edu}\label{email-ruchinpausc.edu}
+
+    \subsection{STATISTICS AND
+BOOTSTRAPPING}\label{statistics-and-bootstrapping}
+
+\subsection{PROBLEM STATEMENT}\label{problem-statement}
+
+\begin{itemize}
+\tightlist
+\item
+  Compute the sample mean, m , and the sample variance, \(s^2\) of the
+  empirical sample distribution.
+\item
+  Use the data to generate a discrete approximation to the Cumulative
+  Distribution Function -- the empirical distribution, \(F_{X^*}(x)\)
+  Plot this distribution.
+\item
+  By splitting the data into equal size intervals (0-5, 6-10, etc),
+  generate a discrete approximation to the distribution and determine
+  the values of the Probability Mass Function for this discrete
+  approximation.
+\item
+  Use the bootstrapping technique to generate M bootstrap sets of
+  samples based on the empirical distribution found in part b), with
+  each set containing n independent samples from the Empirical
+  Distribution (repetition allowed). Compute the sample mean and sample
+  variance for each of the Bootstrap sample sets, call these \(m_{i}^*\)
+  and \(s_{i}^{*2}\) for i = 1,...,M respectively. Use M = 50 and M =
+  100.
+\item
+  Estimate the MSE by: MSE(\(m^*\)) =
+  \(\frac{1}{M} * \sum_{i=1}^{M} (m_{i}^* - m)^2\). We take this value
+  to be an estimate of the MSE of the sample mean for the overall
+  population distribution.
+\item
+  Do a similar evaluation of the MSE of the bootstrap sample variance
+  \(s^{*2}\) as follows: MSE(\(s^{*2}\)) =
+  \(\frac{1}{M} * \sum_{i=1}^{M} (s_{i}^{*2} - s^2)^2\).
+\end{itemize}
+
+    \subsection{THEORETICAL EXPLORATION}\label{theoretical-exploration}
+
+\begin{itemize}
+\item
+  \(\textbf{CDF}\): The cdf is often denothed by \(F_{X}(x)\) and is
+  known as the Cumulative distribution function.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(F_{X}(x)\) = P(X \textless{}= x) where X is a random variable and
+    the CDF is the probability of the random variable X being less than
+    or equal to a particular value x.
+  \end{itemize}
+\item
+  \(\textbf{PMF}\): The pmf of a random variable X is denoted by P(X =
+  x) where X is the random variable and PMF gives us the probability of
+  a random variable X taking the value x.
+\item
+  \(\textbf{Sample Mean and Variance}\): The output from a simulation
+  run in some observation of measured data X, which is actually just a
+  random variable. We use this measure data to estimate some quantity of
+  interest being studied, \(\theta\). Usually E{[}X{]} = \(\theta\).
+  There is an underlying distribution for the X which may or may not be
+  known. We call this underlying distribution the population
+  distribution and denote the population mean by \(\mu\) = E{[}X{]} and
+  the population variance by \(\sigma^2\) = E{[}\((X - \mu)^2\){]}. The
+  population distribution can be found by running an infinite number of
+  simulations or by having some analytical understanding of the physical
+  system being simulated. We typically collect independent samples or
+  runs which result in a set of observations \{\(X_i : i = 1,...n\)\}
+  all of which are independently distributed random variables with mean
+  \(\theta\). We then find the average: \$ \bar\{X\} = \frac{1}{n} *
+  \sum\_\{i=1\}\^{}\{n\} (X\_i)\$ and use this as an estimator of
+  \(\theta\).
+
+  \begin{itemize}
+  \item
+    \(\textbf{Sample Mean}\): The sample mean is defined as follows:
+    \(\bar{X} = \frac{1}{n} * \sum_{i=1}^{n} (X_i)\)
+
+    \begin{itemize}
+    \item
+      The mean squared error - the expected value of the squared
+      difference between \(\bar{X}\) and \(\mu\) is just the variance of
+      \(\bar{X}\). i.e
+
+      \begin{itemize}
+      \tightlist
+      \item
+        MSE(\(\hat{m}\)) = E{[}\((\bar{X} - \mu)^2\){]} =
+        \(\frac{\sigma^2}{n}\)
+      \end{itemize}
+    \end{itemize}
+  \item
+    \(\textbf{Sample Variance}\): The sample variance is is defined as
+    follows: \(S^2\) =
+    \(\frac{1}{n-1} * \sum_{i=1}^{n} (X_i - \bar{X})^2\).
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Note that the the term (n-1) is in the denominator to make the
+      sample variance an unbiased estimator.
+    \end{itemize}
+  \end{itemize}
+\item
+  \(\textbf{Interval Estimates}\): If the observed value of the sample
+  mean is \(\bar{X}\) = m and the sample standard deviation is \(S^2\) =
+  \(s^2\), then we can use
+  \((m - \frac{s}{\sqrt{n}}z_{\frac{\alpha}{2}},m + \frac{s}{\sqrt{n}}z_{\frac{\alpha}{2}})\)
+  as the 100(1 - \(\alpha\)) confidence interval for \(\mu\).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(z_{\frac{\alpha}{2}}\) is the value of RV Z which is distributed
+    standard normally N(0,1) in sucha a way that: Pr\{
+    \(-z_{\frac{\alpha}{2}} < Z < z_{\frac{\alpha}{2}}\) \} = 1 -
+    \(\alpha\).
+  \end{itemize}
+\item
+  \(\textbf{Emperical Distributions}\): Given a set of samples
+  \{\(X_i : i = 1,...n\)\} drawn from the distribution \(F_X\).(\(X_i\)
+  is the RV for the \(i^th\) sample and \(x_i\) is the actual value
+  measured. We are interested in finding an estimate of some statistic
+  \(\theta\).
+
+  \begin{itemize}
+  \item
+    Almost every time however we do not know the distribution \(F_X\) or
+    even \(\mu\) or \(\sigma^2\) in that case we can find the emperical
+    CDF as follows:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \(F_{n}^{*}(x)\) =
+      \(\frac{1}{n} * \sum_{i=1}^{n} \delta(X_i <= x)\) where \(\delta\)
+      is an indicator function.
+    \item
+      \(\lim_{n\to\infty} F_{n}^{*}\) = \(F_{X}\). This means as the
+      number of samples in the emperical distribution increases the
+      emperical CDF tends to go towards the true CDF.
+    \end{itemize}
+  \end{itemize}
+\item
+  \(\textbf{Bootstrapping}\): The bootstrapping technique uses the
+  emperical distribution to define the discrete sample space of
+  distributin os each \(X_i\). We generate a set of K bootstrap samples
+  from the emperical distribution with replacement, calculate the sample
+  mean and sample variance of each bootstrap sample and then use it to
+  estimate the population mean.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}335}]:} \PY{n}{samples} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{37.12}\PY{p}{,}\PY{l+m+mf}{2.78}\PY{p}{,}\PY{l+m+mf}{1.33}\PY{p}{,}\PY{l+m+mf}{33.55}\PY{p}{,}\PY{l+m+mf}{45.39}\PY{p}{,}\PY{l+m+mf}{9.25}\PY{p}{,}\PY{l+m+mf}{28.32}\PY{p}{,}\PY{l+m+mf}{35.62}\PY{p}{,}\PY{l+m+mf}{28.00}\PY{p}{,}\PY{l+m+mf}{4.56}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{5.27}\PY{p}{,}\PY{l+m+mf}{12.83}\PY{p}{,}\PY{l+m+mf}{7.90}\PY{p}{,}\PY{l+m+mf}{18.18}\PY{p}{,}\PY{l+m+mf}{23.26}\PY{p}{,}\PY{l+m+mf}{31.54}\PY{p}{,}\PY{l+m+mf}{30.99}\PY{p}{,}\PY{l+m+mf}{13.40}\PY{p}{,}\PY{l+m+mf}{0.60}\PY{p}{,}\PY{l+m+mf}{34.10}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{8.45}\PY{p}{,}\PY{l+m+mf}{3.98}\PY{p}{,}\PY{l+m+mf}{33.25}\PY{p}{,}\PY{l+m+mf}{31.10}\PY{p}{,}\PY{l+m+mf}{28.67}\PY{p}{,}\PY{l+m+mf}{12.55}\PY{p}{,}\PY{l+m+mf}{30.92}\PY{p}{,}\PY{l+m+mf}{27.88}\PY{p}{,}\PY{l+m+mf}{31.44}\PY{p}{,}\PY{l+m+mf}{2.28}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{18.52}\PY{p}{,}\PY{l+m+mf}{15.43}\PY{p}{,}\PY{l+m+mf}{26.48}\PY{p}{,}\PY{l+m+mf}{4.48}\PY{p}{,}\PY{l+m+mf}{3.35}\PY{p}{,}\PY{l+m+mf}{26.16}\PY{p}{,}\PY{l+m+mf}{6.93}\PY{p}{,}\PY{l+m+mf}{4.57}\PY{p}{,}\PY{l+m+mf}{39.74}\PY{p}{,}\PY{l+m+mf}{29.95}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{28.96}\PY{p}{,}\PY{l+m+mf}{32.79}\PY{p}{,}\PY{l+m+mf}{19.91}\PY{p}{,}\PY{l+m+mf}{1.86}\PY{p}{,}\PY{l+m+mf}{7.12}\PY{p}{,}\PY{l+m+mf}{27.49}\PY{p}{,}\PY{l+m+mf}{32.62}\PY{p}{,}\PY{l+m+mf}{20.71}\PY{p}{,}\PY{l+m+mf}{33.32}\PY{p}{,}\PY{l+m+mf}{11.33}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{7.63}\PY{p}{,}\PY{l+m+mf}{8.75}\PY{p}{,}\PY{l+m+mf}{6.81}\PY{p}{,}\PY{l+m+mf}{30.33}\PY{p}{,}\PY{l+m+mf}{0.17}\PY{p}{,}\PY{l+m+mf}{22.79}\PY{p}{,}\PY{l+m+mf}{13.27}\PY{p}{,}\PY{l+m+mf}{34.10}\PY{p}{,}\PY{l+m+mf}{1.11}\PY{p}{,}\PY{l+m+mf}{1.94}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{0.27}\PY{p}{,}\PY{l+m+mf}{0.14}\PY{p}{,}\PY{l+m+mf}{30.43}\PY{p}{,}\PY{l+m+mf}{30.57}\PY{p}{,}\PY{l+m+mf}{35.38}\PY{p}{,}\PY{l+m+mf}{33.72}\PY{p}{,}\PY{l+m+mf}{24.10}\PY{p}{,}\PY{l+m+mf}{36.62}\PY{p}{,}\PY{l+m+mf}{5.01}\PY{p}{,}\PY{l+m+mf}{0.24}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{31.03}\PY{p}{,}\PY{l+m+mf}{4.65}\PY{p}{,}\PY{l+m+mf}{32.20}\PY{p}{,}\PY{l+m+mf}{1.68}\PY{p}{,}\PY{l+m+mf}{8.90}\PY{p}{,}\PY{l+m+mf}{6.89}\PY{p}{,}\PY{l+m+mf}{10.08}\PY{p}{,}\PY{l+m+mf}{0.76}\PY{p}{,}\PY{l+m+mf}{2.40}\PY{p}{,}\PY{l+m+mf}{0.16}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{36.22}\PY{p}{,}\PY{l+m+mf}{24.87}\PY{p}{,}\PY{l+m+mf}{25.84}\PY{p}{,}\PY{l+m+mf}{5.34}\PY{p}{,}\PY{l+m+mf}{1.92}\PY{p}{,}\PY{l+m+mf}{2.3}\PY{p}{,}\PY{l+m+mf}{33.56}\PY{p}{,}\PY{l+m+mf}{24.03}\PY{p}{,}\PY{l+m+mf}{1.3}\PY{p}{,}\PY{l+m+mf}{8.53}\PY{p}{,} \PYZbs{}
+                     \PY{l+m+mf}{4.06}\PY{p}{,}\PY{l+m+mf}{5.21}\PY{p}{,}\PY{l+m+mf}{25.69}\PY{p}{,}\PY{l+m+mf}{28.44}\PY{p}{,}\PY{l+m+mf}{13.29}\PY{p}{,}\PY{l+m+mf}{27.92}\PY{p}{,}\PY{l+m+mf}{28.95}\PY{p}{,}\PY{l+m+mf}{36.40}\PY{p}{,}\PY{l+m+mf}{1.05}\PY{p}{,}\PY{l+m+mf}{1.43} 
+                    \PY{p}{]}
+          \PY{n}{samples} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+          \PY{n}{samples} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{a.)}\label{a.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}336}]:} \PY{n}{m} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+          \PY{n}{s\PYZus{}2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+          \PY{n}{st\PYZus{}dev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample mean m of the sample is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sample variance s\PYZus{}2 of the sample is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{s\PYZus{}2}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Standard deviation of the sample is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{st\PYZus{}dev}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sample mean m of the sample is:  17.647100000000002
+Sample variance s\_2 of the sample is:  175.45997059
+Standard deviation of the sample is:  13.246130400611342
+
+    \end{Verbatim}
+
+    \begin{longtable}[]{@{}cc@{}}
+\toprule
+Sample Mean(m) & Sample Variance(\(s^2\))\tabularnewline
+\midrule
+\endhead
+17.647 & 175.46\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  As we can see from the above values since the sample size is small the
+  variance and hence the standard deviation are also high. If we could
+  have gotten a bigger sample then the variance, standard deviation
+  would have been less and the mean would have been more accurate.
+\end{itemize}
+
+    \subsubsection{b.)}\label{b.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}337}]:} \PY{n}{values} \PY{o}{=} \PY{n}{generate\PYZus{}CDF}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  The above plot shows the distribution of the the emperical sample we
+  have. Not only that but it also shows the corresponding CDF.
+\item
+  The cdf from the above figure is the true CDF of the emperical
+  distribution because of the following reasons:
+
+  \begin{itemize}
+  \item
+    The above CDF follows all the properties which a true CDF should
+    follow:
+
+    \begin{itemize}
+    \item
+      0 \textless{}= \(F_{X}(x)\) \textless{}= 1. As we can see the
+      maximum value of the CDF we have is 1 and the minimum is zero and
+      hence this constraint is satisfied.
+    \item
+      \(\lim_{n\to\infty} F_{X} = 1\). This is infact true because as
+      per the graph the CDF corresponding to the maximum value of the
+      sample is 1.
+    \item
+      \(\lim_{n\to-\infty} F_{X} = 0\) and for positive values RV's
+      \(F_X(0) = 0\). This property is also fulfilled by the CDF
+      calculated above.
+    \item
+      Also it is pretty evident that this CDF is non decreasing.
+    \end{itemize}
+  \end{itemize}
+\item
+  Thus we can say that the CDF plotted above is the true distribution of
+  our emperical sample.
+\end{itemize}
+
+    \subsubsection{c.)}\label{c.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}338}]:} \PY{n}{orig\PYZus{}cdf} \PY{o}{=} \PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{r} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{interval} \PY{o}{=} \PY{n}{r}\PY{o}{*}\PY{l+m+mi}{5}
+          \PY{n}{interval} \PY{o}{=} \PY{n}{interval} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}339}]:} \PY{n}{discrete\PYZus{}cdf} \PY{o}{=} \PY{n}{orig\PYZus{}cdf}\PY{p}{[}\PY{n}{interval}\PY{p}{]}
+          \PY{n}{discrete\PYZus{}intervals} \PY{o}{=} \PY{n}{values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{interval}\PY{p}{]}
+          
+          \PY{n}{r2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{interval2} \PY{o}{=} \PY{n}{r2}\PY{o}{*}\PY{l+m+mi}{5}
+          \PY{n}{discrete\PYZus{}intervals2} \PY{o}{=} \PY{n}{values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{interval2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}340}]:} \PY{n}{generate\PYZus{}discrete\PYZus{}CDF}\PY{p}{(}\PY{n}{samples}\PY{p}{,}\PY{n}{discrete\PYZus{}intervals2}\PY{p}{,}\PY{n}{discrete\PYZus{}cdf}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}341}]:} \PY{n}{disc\PYZus{}pmf} \PY{o}{=} \PY{n}{calc\PYZus{}disc\PYZus{}pmf}\PY{p}{(}\PY{n}{discrete\PYZus{}cdf}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{discrete\PYZus{}intervals}\PY{p}{,}\PY{n}{disc\PYZus{}pmf}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The pmf of the discrete emperical sample with 5 sized intervals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\item
+  \(\textbf{Methodology}\): The way in which I created this distribution
+  is as follows:
+
+  \begin{itemize}
+  \item
+    Step-1 : Sorted the entire emperical sample so that it started from
+    the lowest vale and ended at the highest value.
+  \item
+    Step-2 : Then I divided the hundred samples in sizes of 5. So
+    basically I considered the values corresponding to these indices
+    from the sorted array.
+
+    \begin{itemize}
+    \item
+      Indices considered: {[}5,10,15,20,25,.....,100{]}
+    \item
+      So the question arises that how do I calculate the CDF of the
+      values occuring at these particular indices. This happens in the
+      following way.
+
+      \begin{itemize}
+      \tightlist
+      \item
+        P(X \textless{}= \(x_i\)) = P(X \textless{}= \(x_{i-1}\)) + P(X
+        \textless{}= \(x_{i-2}\)) + P(X \textless{}= \(x_{i-3}\)) + ....
+        + P(X \textless{}= \(x_{0}\))
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+x & pmf & CDF\tabularnewline
+\midrule
+\endhead
+1.95 & 0.19 & 0.19\tabularnewline
+4.2125 & 0.08 & 0.27\tabularnewline
+6.475 & 0.06 & 0.33\tabularnewline
+8.7375 & 0.08 & 0.41\tabularnewline
+11.0 & 0.03 & 0.44\tabularnewline
+13.2625 & 0.05 & 0.49\tabularnewline
+15.525 & 0.01 & 0.50\tabularnewline
+17.7875 & 0.01 & 0.51\tabularnewline
+20.05 & 0.02 & 0.53\tabularnewline
+22.3125 & 0.01 & 0.54\tabularnewline
+24.575 & 0.05 & 0.59\tabularnewline
+26.8375 & 0.04 & 0.63\tabularnewline
+29.1 & 0.09 & 0.72\tabularnewline
+31.3625 & 0.10 & 0.82\tabularnewline
+33.625 & 0.08 & 0.90\tabularnewline
+35.8875 & 0.05 & 0.95\tabularnewline
+38.15 & 0.03 & 0.98\tabularnewline
+40.4125 & 0.01 & 0.99\tabularnewline
+42.675 & 0.00 & 0.99\tabularnewline
+44.9375 & 0.01 & 1.00\tabularnewline
+& Total = 1 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  The above table gives us the discrete distribution of the sample. This
+  PMF is correct because it sums to one and the CDF is correct because
+  its final value is 1 and it is a non decreasing function.
+\item
+  Also the graph of the pmf shows us that the PMF derieved from the CDF
+  has the same shape as that of the original bimodal distribution of the
+  entire emperical sample. This proves that our calculation are indeed
+  correct.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}342}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{To prove that this pmf is correct the sum should be one: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{disc\PYZus{}pmf}\PY{p}{)}\PY{p}{,}\PY{n}{decimals}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+To prove that this pmf is correct the sum should be one:  1.0
+
+    \end{Verbatim}
+
+    \subsubsection{d.)}\label{d.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}343}]:} \PY{n}{emp\PYZus{}dist} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+          \PY{n}{bs\PYZus{}samps\PYZus{}50} \PY{o}{=} \PY{n}{generate\PYZus{}bootstrap}\PY{p}{(}\PY{n}{emp\PYZus{}dist}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{bs\PYZus{}param\PYZus{}50} \PY{o}{=} \PY{n}{calc\PYZus{}mean\PYZus{}var}\PY{p}{(}\PY{n}{bs\PYZus{}samps\PYZus{}50}\PY{p}{)}
+          
+          \PY{n}{bs\PYZus{}samps\PYZus{}100} \PY{o}{=} \PY{n}{generate\PYZus{}bootstrap}\PY{p}{(}\PY{n}{emp\PYZus{}dist}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{bs\PYZus{}param\PYZus{}100} \PY{o}{=} \PY{n}{calc\PYZus{}mean\PYZus{}var}\PY{p}{(}\PY{n}{bs\PYZus{}samps\PYZus{}100}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sample mean of 50 bootstrap samples are: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}50}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sample variance of 50 bootstrap samples are: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}50}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sample mean of 100 bootstrap samples are: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}100}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The sample variance of 100 bootstrap samples are: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}100}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The sample mean of 50 bootstrap samples are:  [17.671499999999995, 17.518700000000003, 18.421399999999995, 16.91199999999999, 15.840699999999996, 16.949700000000004, 16.90490000000001, 18.198300000000003, 16.426499999999997, 17.043700000000005, 19.459199999999996, 18.845000000000006, 17.3512, 19.90519999999999, 17.832999999999995, 16.957200000000004, 16.838300000000004, 17.3079, 17.365699999999993, 17.426200000000005, 16.47679999999999, 18.680799999999987, 18.30119999999999, 16.0888, 16.3022, 15.472300000000002, 18.480699999999995, 17.0898, 18.249899999999997, 17.2479, 19.155800000000003, 16.691599999999998, 16.9805, 13.948799999999999, 17.2947, 20.019, 17.049699999999994, 15.677, 17.5763, 16.9049, 19.1307, 18.53, 16.363099999999992, 18.262599999999992, 15.755999999999997, 18.3369, 16.058499999999995, 18.208399999999997, 19.6067, 18.731400000000004]
+
+
+The sample variance of 50 bootstrap samples are:  [176.76595875000004, 167.71920331, 169.92979404000002, 166.47478800000002, 151.30844851, 163.46762890999997, 183.68284099000005, 180.67069210999995, 169.4565887500001, 177.46739531000011, 177.14363736000004, 176.87968899999998, 155.11934255999998, 177.12934696, 171.71616100000003, 174.48519016000006, 173.53412611000005, 168.79680858999996, 168.63392851000003, 175.72552955999998, 169.27885375999998, 172.71490735999996, 170.86186456, 173.38114856000004, 169.15463116000006, 180.67647371000004, 159.83077851000004, 169.75184596000005, 151.51853498999995, 187.24466458999999, 178.37413836, 185.85493143999997, 166.41513074999992, 166.42379456000003, 180.59746291000008, 173.30244499999992, 161.11592891000006, 185.774359, 175.44372931, 161.87852899, 185.77746650999998, 169.818534, 183.35247538999994, 185.27922523999987, 176.83400599999996, 170.45164538999998, 165.12120475000003, 174.70656744, 187.80107811000002, 181.37733603999996]
+
+
+
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+The sample mean of 100 bootstrap samples are:  [15.984699999999993, 18.2246, 18.301300000000005, 16.190700000000007, 17.721199999999993, 19.7354, 16.575499999999995, 17.962200000000006, 18.0991, 18.251900000000003, 18.658999999999995, 16.7105, 17.52729999999999, 15.663300000000003, 19.303799999999995, 18.286799999999996, 16.786699999999996, 17.279999999999998, 20.243499999999997, 17.004500000000004, 17.226299999999995, 18.816199999999995, 17.745599999999996, 16.5439, 16.655599999999996, 16.186600000000002, 17.775099999999995, 16.496699999999997, 16.852799999999995, 17.0338, 17.141199999999998, 18.632399999999997, 19.0997, 17.8154, 18.613700000000005, 19.9058, 17.0489, 18.5834, 18.922000000000004, 19.078099999999996, 18.2938, 16.029899999999994, 18.6275, 17.7782, 16.926000000000005, 19.2508, 16.2754, 17.513599999999993, 18.591499999999996, 18.124899999999997, 17.6158, 18.2475, 15.745599999999998, 18.246299999999994, 15.988499999999998, 15.185199999999998, 20.101499999999998, 20.683600000000002, 18.894600000000004, 18.547599999999992, 16.365099999999998, 18.3586, 18.5129, 17.157600000000006, 17.422499999999996, 15.305000000000005, 17.331699999999994, 18.715100000000007, 18.301299999999998, 17.396599999999992, 17.314299999999992, 17.512900000000002, 21.80749999999999, 16.004299999999994, 19.372200000000003, 13.084099999999994, 17.160799999999995, 19.906400000000012, 17.240499999999997, 18.483399999999996, 17.796699999999994, 16.201400000000003, 14.512400000000008, 18.612500000000004, 15.569800000000008, 18.0083, 18.1474, 17.5172, 16.9556, 15.784699999999987, 16.58989999999999, 18.0189, 18.0325, 19.7163, 19.091799999999992, 18.9782, 18.585500000000007, 18.281000000000002, 16.428, 16.5026]
+
+
+The sample variance of 100 bootstrap samples are:  [171.2917549099999, 176.11542284000004, 181.42459530999994, 178.42732050999996, 166.59885255999995, 149.11341884, 164.05888874999997, 169.48543716000003, 191.49088019, 204.57767139000003, 196.68488099999996, 163.79647274999996, 182.87235171000003, 169.47238211000004, 182.68431556, 187.15412375999998, 165.77820810999998, 173.24837000000002, 166.62803275000005, 188.25456074999994, 191.52672531, 165.32527356000003, 185.58893664000007, 174.88882179000004, 176.90477464000014, 166.46797043999993, 210.42869699000005, 185.88181410999997, 184.34670415999997, 159.08439756000004, 178.1098165600001, 168.46490424, 162.16207091, 185.26632683999986, 163.87028131, 167.10578035999998, 173.00526979000003, 197.6337604400001, 197.19917800000007, 163.70036939, 180.2617735600001, 166.98653298999994, 169.7096987499999, 191.46664275999998, 169.48614600000008, 205.27284135999994, 159.42440683999996, 210.01456503999995, 169.33915074999993, 171.04338299000003, 178.53496435999995, 168.45300075000006, 174.6877966400001, 171.37995131000008, 183.06017675000007, 164.70151096, 185.05756075000008, 172.42361104000003, 182.47774884000006, 190.72359224, 185.44307699000004, 178.33002804, 188.16972459000002, 176.86990624000018, 167.56298675, 178.9440509999999, 166.07352211, 163.0184969899999, 171.20574531, 189.3501344399998, 180.04445250999999, 162.56550258999997, 162.64683875000003, 166.15993450999997, 176.1653771599999, 160.97999419000004, 157.30645536000006, 158.52903504000002, 194.18823274999994, 182.75070043999992, 166.02002011000002, 145.26263003999998, 171.07805623999997, 189.27787075000006, 179.97068795999996, 188.26744011, 195.35177724000005, 167.74599816000006, 184.36758664, 154.52327890999996, 164.11069298999996, 174.47806978999995, 177.22813075, 189.53098131000002, 168.16640076000007, 189.73029075999992, 180.21227874999997, 156.31152699999998, 170.21289600000003, 177.09493524]
+
+    \end{Verbatim}
+
+    \subsubsection{e.)}\label{e.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}344}]:} \PY{n}{calc\PYZus{}MSE}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}50}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{calc\PYZus{}MSE}\PY{p}{(}\PY{n}{s\PYZus{}2}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}50}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Mean squared error for  sample mean  with  50  bootstrap samples is:  1.5411745538000003
+The Mean squared error for  sample variance  with  50  bootstrap samples is:  82.38986747361052
+
+    \end{Verbatim}
+
+    \subsubsection{f.)}\label{f.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}345}]:} \PY{n}{calc\PYZus{}MSE}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}100}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{calc\PYZus{}MSE}\PY{p}{(}\PY{n}{s\PYZus{}2}\PY{p}{,}\PY{n}{bs\PYZus{}param\PYZus{}100}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Mean squared error for  sample mean  with  100  bootstrap samples is:  1.8798845175000003
+The Mean squared error for  sample variance  with  100  bootstrap samples is:  164.7216368930458
+
+    \end{Verbatim}
+
+    \begin{longtable}[]{@{}ccc@{}}
+\toprule
+bootstrap size(M) & MSE of sample mean & MSE of sample
+variance\tabularnewline
+\midrule
+\endhead
+50 & 1.75 & 172.27\tabularnewline
+100 & 1.78 & 133.03\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \begin{itemize}
+\item
+  \(\textbf{Analysis of part (e.) and (f.)}\) :
+
+  \begin{itemize}
+  \item
+    The MSE of sample mean is fairly same for M = 50 and M=100. This is
+    because the sample mean is an unbiazed estimator of the population
+    mean and hence sample mean gives us fairly good estimates of the
+    population mean which in our case is the mean of the emperical
+    distribution. Due to this reason MSE for sample means is very low.
+  \item
+    However for sample variance when the bootstrap sample size is less
+    the MSE is more and when M is high the MSE is reduces. The reason is
+    that as the bootstrap samples increase the sample variances tend to
+    fall closer to the emperical distribution variance and because of
+    this MSE also decreases.
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}346}]:} \PY{n}{dist} \PY{o}{=} \PY{n}{bs\PYZus{}param\PYZus{}50}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{P\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+          \PY{n}{std\PYZus{}sampling\PYZus{}dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+          \PY{n}{density\PYZus{}prop} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{green}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{hist\PYZus{}prop} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{plot\PYZus{}densityCurve}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{density\PYZus{}prop}\PY{p}{,}\PY{n}{hist\PYZus{}prop}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{n}{P\PYZus{}hat}\PY{p}{,}\PY{n}{std\PYZus{}sampling\PYZus{}dist}\PY{p}{,}\PY{n}{s\PYZus{}2}\PY{p}{)}
+          
+          \PY{n}{dist} \PY{o}{=} \PY{n}{bs\PYZus{}param\PYZus{}100}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{P\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+          \PY{n}{std\PYZus{}sampling\PYZus{}dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{dist}\PY{p}{)}
+          \PY{n}{density\PYZus{}prop} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{orange}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{hist\PYZus{}prop} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{alpha}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{color}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{red}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+          \PY{n}{plot\PYZus{}densityCurve}\PY{p}{(}\PY{n}{dist}\PY{p}{,}\PY{n}{density\PYZus{}prop}\PY{p}{,}\PY{n}{hist\PYZus{}prop}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{n}{P\PYZus{}hat}\PY{p}{,}\PY{n}{std\PYZus{}sampling\PYZus{}dist}\PY{p}{,}\PY{n}{s\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+here
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+here
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{itemize}
+\tightlist
+\item
+  \(\textbf{Conclusion}\)
+
+  \begin{itemize}
+  \item
+    MSE of sample variance decreases as we increase the number of
+    bootstrap samples. As we can see from the figures the distribution
+    of the sample variance whem M=100 looks more normal and since the
+    sample mean of the sample variance is quite near to the emperical
+    variance line shown in purple the MSE in case of M = 100 would be
+    very less.
+  \item
+    Thus having more number of bootstrap samples would definitely reduce
+    our MSE and give us good approximates about the true population
+    parameters.
+  \end{itemize}
+\end{itemize}
+
+    \subsection{FUNCTION DEFINITIONS}\label{function-definitions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}334}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}Function definitions\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{sklearn} \PY{k}{as} \PY{n+nn}{sk}
+          \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{sci}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{font\PYZus{}manager} \PY{k}{import} \PY{n}{FontProperties}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{mlab} \PY{k}{as} \PY{n+nn}{mlab}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{st}
+          \PY{k+kn}{import} \PY{n+nn}{operator}
+          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{binom}
+          \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{geom}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{n}{fontP} \PY{o}{=} \PY{n}{FontProperties}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fontP}\PY{o}{.}\PY{n}{set\PYZus{}size}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{generate\PYZus{}CDF}\PY{p}{(}\PY{n}{samples}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                       \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{emperical dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+              \PY{n}{orig\PYZus{}cdf}\PY{p}{,}\PY{n}{bins}\PY{p}{,}\PY{n}{patches} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{,}\PY{n}{cumulative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PYZbs{}
+                                               \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{100}\PY{p}{,}\PY{n}{normed} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PYZbs{}
+                                                 \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PYZbs{}
+                                               \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The CDF plot of the given emperical distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.23}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{orig\PYZus{}cdf}\PY{p}{,}\PY{n}{bins}\PY{p}{,}\PY{n}{patches}
+          
+          \PY{k}{def} \PY{n+nf}{generate\PYZus{}discrete\PYZus{}CDF}\PY{p}{(}\PY{n}{samples}\PY{p}{,}\PY{n}{intervals}\PY{p}{,}\PY{n}{cdf}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{,}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}\PY{n}{normed}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                       \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{emperical dist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                         \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{twinx}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{intervals}\PY{p}{,}\PY{n}{cdf}\PY{p}{,}\PY{n}{align} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                      \PY{n}{width} \PY{o}{=}\PY{l+m+mf}{2.3}\PY{p}{,}\PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Discrete CDF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The discrete CDF plot of }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{              the given emperical distribution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                         \PY{n}{bbox\PYZus{}to\PYZus{}anchor}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+          \PY{k}{def} \PY{n+nf}{calc\PYZus{}disc\PYZus{}pmf}\PY{p}{(}\PY{n}{cdf}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{disc\PYZus{}pmf} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{disc\PYZus{}pmf}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cdf}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{cdf}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{pmf} \PY{o}{=} \PY{n}{cdf}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{disc\PYZus{}pmf}\PY{p}{)}
+                  \PY{n}{disc\PYZus{}pmf}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pmf}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{disc\PYZus{}pmf}
+          
+          \PY{k}{def} \PY{n+nf}{generate\PYZus{}bootstrap}\PY{p}{(}\PY{n}{emp\PYZus{}dist}\PY{p}{,}\PY{n}{M}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{bootstrap\PYZus{}samples} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{M}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{bs} \PY{o}{=} \PY{n}{emp\PYZus{}dist}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{n}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                  \PY{n}{bootstrap\PYZus{}samples}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{bs}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{bootstrap\PYZus{}samples}
+          
+          \PY{k}{def} \PY{n+nf}{calc\PYZus{}mean\PYZus{}var}\PY{p}{(}\PY{n}{bootstrap}\PY{p}{)}\PY{p}{:}
+              \PY{n}{m} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{s\PYZus{}2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{bootstrap}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                   
+                  \PY{n}{m}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{bootstrap}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{s\PYZus{}2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{n}{bootstrap}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{m}\PY{p}{,}\PY{n}{s\PYZus{}2}
+          
+          \PY{k}{def} \PY{n+nf}{calc\PYZus{}MSE}\PY{p}{(}\PY{n}{m}\PY{p}{,}\PY{n}{param}\PY{p}{,}\PY{n}{s1}\PY{p}{)}\PY{p}{:}
+              \PY{n}{M} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{param}\PY{p}{)}
+              \PY{n}{total} \PY{o}{=} \PY{l+m+mi}{0} 
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{M}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{sq\PYZus{}err} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{param}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{m}\PY{p}{)}
+                  \PY{n}{total} \PY{o}{=} \PY{n}{total} \PY{o}{+} \PY{n}{sq\PYZus{}err}
+                  
+              \PY{n}{MSE} \PY{o}{=} \PY{n}{total}\PY{o}{/}\PY{n}{M}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Mean squared error for }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{s1}\PY{p}{,} \PYZbs{}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ with }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ bootstrap samples is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{MSE}\PY{p}{)}
+              
+              
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}densityCurve}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{)}
+              \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{kde\PYZus{}kws}\PY{o}{=}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{here}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yellow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                          \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample mean of var}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PYZbs{}
+                          \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1 standard dev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{+}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purple}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PYZbs{}
+                          \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True var}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{l+m+mf}{1.96}\PY{o}{*}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PYZbs{}
+                          \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{95}\PY{l+s+si}{\PYZpc{} c}\PY{l+s+s1}{onfidence line}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{+}\PY{p}{(}\PY{l+m+mf}{1.96}\PY{o}{*}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PYZbs{}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}plt.xlim(0.72,0.85)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The sampling distribution of sample }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s2}{              variance with bootstrap sample number: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{args}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}       
+                  
+              
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
